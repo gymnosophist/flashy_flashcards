@@ -6,7 +6,7 @@ The goal of this project is to create an easy interface for creating Anki flashc
 
 ## Requirements 
 
-There are several libraries requiured, and several pieces of outside data. 
+There are several libraries required, and several pieces of outside data. 
 
 ### Package requirements 
 
