@@ -10,6 +10,11 @@ There are several libraries requiured, and several pieces of outside data.
 
 ### Package requirements 
 
+pandas == 1.0.4
+xml.etree.ElementTree == 1.3.0
+glob == 0.7 
+genanki == 0.8
+
 ### Data requirements 
 
 The module requries access to the Lemmatized Ancient Greek and LSJ Unicode github repos, available at 
