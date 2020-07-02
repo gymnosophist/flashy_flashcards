@@ -34,8 +34,8 @@ parser = TextParser()
 
 parser.catalog.sample(1, random_state = 123).urn.values[0]
 
-parser.get_text(urn = 'urn:cts:greekLit:tlg2200.tlg00445.opp-grc1')
+parser.get_text(urn = 'urn:cts:greekLit:tlg2200.tlg00445.opp-grc1') # Libanius, Orationes XXVI-L
 
-parser.add_word_definitions() 
+parser.add_word_definitions() # creates dictionary
 
-parser.make_flashcards() 
+parser.make_flashcards('libanius_vocab') # output in working directory
