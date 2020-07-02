@@ -6,7 +6,7 @@ import glob
 import genanki
 import stop_list 
 import random 
-from tqdm import *
+from tqdm import tqdm
 # from cltk.stop.greek import stops
 from string import punctuation 
 from collections import Counter 
