@@ -6,9 +6,15 @@ The goal of this project is to create an easy interface for creating Anki flashc
 
 ## Requirements 
 
-There are several libraries requiured, and several pieces of outside data. 
+There are several libraries required, and several pieces of outside data. 
 
 ### Package requirements 
+
+pandas == 1.0.4
+xml.etree.ElementTree == 1.3.0
+glob == 0.7 
+genanki == 0.8
+tqdm == 4.47.0
 
 ### Data requirements 
 
@@ -29,8 +35,8 @@ parser = TextParser()
 
 parser.catalog.sample(1, random_state = 123).urn.values[0]
 
-parser.get_text(urn = 'urn:cts:greekLit:tlg2200.tlg00445.opp-grc1')
+parser.get_text(urn = 'urn:cts:greekLit:tlg2200.tlg00445.opp-grc1') # Libanius, Orationes XXVI-L
 
-parser.add_word_definitions() 
+parser.add_word_definitions() # creates dictionary
 
-parser.make_flashcards() 
+parser.make_flashcards('libanius_vocab') # output in working directory
