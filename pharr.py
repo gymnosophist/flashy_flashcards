@@ -1,6 +1,6 @@
 import pandas as pd 
 import os 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 import collections
 import glob
 import genanki
@@ -48,7 +48,7 @@ class TextParser:
         :param urn: urn of text to parse
         """
         file = ''.join(urn.rsplit(':')[3:])
-        path = './LemmatizedAncientGreekXML-master/texts/' + file + '.xml'
+        path = 'LemmatizedAncientGreekXML-master/texts/' + file + '.xml'
         tree = ET.parse(path)
         root = tree.getroot()
         word_list = []
@@ -61,26 +61,85 @@ class TextParser:
         word_list = [word for word in word_list if word not in punctuation]
         word_list = [word for word in word_list if word not in stops]
         word_list = [word for word in word_list if word != '·']
-        self.word_list = word_list
+        word_list = [word for word in word_list if word not in exclude]
+        self.word_list = list(set(word_list))
         self.word_count = Counter(word_list)
-        
+        self.urn = file
         self.author = self.catalog.loc[self.catalog['urn'] == urn, 'author']
         self.title = self.catalog.loc[self.catalog['urn'] == urn, 'title']
+        
+        self.tree = tree 
+        self.root = root
+    
+    def parse_text(self): 
+        """Run after get_text. Parses selected text for passage-level information. Requires self.urn instantiated by get_text(urn)
+        """
+        
+        
+        passage_list = []
+        for sub in self.root: 
+            for sub2 in sub: 
+                passage_list.append(sub2.attrib['p'])
+        
+        passage_list = list(set((passage_list)))
+        
+        passage_list.remove('passage-level cts urn')
+
+        self.passage_list = sorted(passage_list)
+
+        # first, last 
+
+        print('first passage is ', passage_list[0])
+        print('last passage is ' ,passage_list[-1])
+        
+        passage_dict = {}
+        for passage in tqdm(passage_list): 
+            passage_dict[passage] = {}
+            passage_dict[passage]['words'] = []
+            passage_dict[passage]['lemmas'] = []
+            for sub in self.root: 
+                for sub2 in sub: 
+                    if sub2.attrib['p'] == passage: 
+                        for sub3 in sub2: 
+                            if sub3.tag == 'f':
+                                if sub.text not in stops:
+                                    passage_dict[passage]['words'].append(sub3.text)
+                            if sub3.tag == 'l':
+                                for sub4 in sub3: 
+                                    passage_dict[passage]['lemmas'].append(sub4.text)
+            passage_dict[passage]['words'] = [word for word in passage_dict[passage]['words'] if word != ',']
+            passage_dict[passage]['num_words'] = len(passage_dict[passage]['words'])
+            passage_dict[passage]['word_count'] = Counter(passage_dict[passage]['words'])
+            passage_dict[passage]['hapax_legomena'] = [] # think about how to do this a little more 
+        
+        self.passage_dict = passage_dict    
+
+        df = pd.DataFrame(passage_dict).T.sort_index()
+        df = df.reset_index().rename(columns = {'index' : 'passage_index'})
+        self.passage_df = df
+        print('requres additional cleanup')
         
     def add_word_definitions(self, word_list = []): 
         """Creates an dictionary of words from the selected text by parsing LSJ. This can take some time."""
         if word_list == []:
             word_list = self.word_list
         d = {}
+        
+        # clean to avoid dupes 
+        word_list = [word for word in word_list if word not in stops]
+        word_list = [word for word in word_list if word not in exclude]
+        
         for word in tqdm(word_list):
             senses = []
             citations = []
+            sentences = []
             d[word] = {}
             d[word]['word'] = word
             d[word]['ending'] = {}
             d[word]['gender'] = {}
             d[word]['citations'] = {}
             d[word]['senses'] = {}
+            d[word]['citation_author'] = {}
             for file in lsj_list: 
                 tree = ET.parse(file)
                 root = tree.getroot()
@@ -101,6 +160,9 @@ class TextParser:
                                     if leaf2.attrib['TEIform'] == 'tr': 
                                         # print(word, leaf2.text)
                                         senses.append(leaf2.text)
+                                    if leaf2.attrib['TEIform'] == 'cit': 
+                                        for leaf3 in leaf2: 
+                                            sentences.append(leaf3.text)
                     d[word]['citations'] = citations 
                     d[word]['senses'] = senses
         self.dictionary = d
