@@ -1,4 +1,6 @@
-# Text parser 
+# Pharr -- Ancient Text Parser 
+
+Named in honor of Clyde Pharr
 
 ## Purpose and scope 
 
