@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pharr by gymnosophist</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/gymnosophist/flashy_flashcards">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/gymnosophist/flashy_flashcards/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/gymnosophist/flashy_flashcards/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Pharr</h1>
+          <p>COde to parse Perseus library, LSJ, and create Anki deck</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/gymnosophist">gymnosophist</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="pharr----ancient-text-parser" class="anchor" href="#pharr----ancient-text-parser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pharr -- Ancient Text Parser</h1>
+<p>Named in honor of Clyde Pharr</p>
+<h2>
+<a id="purpose-and-scope" class="anchor" href="#purpose-and-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Purpose and scope</h2>
+<p>The goal of this project is to create an easy interface for creating Anki flashcards based on any (Greek) text found in the Perseus digital library. This objective is accomplished via the TextParser class, which has methods to explore the available corpus, generate a word list, parse the LSJ, and create and export Anki flashcards.</p>
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+<p>There are several libraries required, and several pieces of outside data.</p>
+<h3>
+<a id="package-requirements" class="anchor" href="#package-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Package requirements</h3>
+<p>pandas == 1.0.4
+xml.etree.ElementTree == 1.3.0
+glob == 0.7
+genanki == 0.8
+tqdm == 4.47.0</p>
+<h3>
+<a id="data-requirements" class="anchor" href="#data-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data requirements</h3>
+<p>The module requries access to the Lemmatized Ancient Greek and LSJ Unicode github repos, available at
+<a href="https://github.com/gcelano">https://github.com/gcelano</a>. Credit to Giuseppe G. A. Celano for these data.</p>
+<h2>
+<a id="operation" class="anchor" href="#operation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Operation</h2>
+<p>Clone the repo, then import pharr.py. Initialize the class TextParser().</p>
+<h3>
+<a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example usage</h3>
+<div class="highlight highlight-source-python"><pre>
+<span class="pl-k">import</span> <span class="pl-s1">pharr</span>.<span class="pl-s1">py</span> 
+
+<span class="pl-s1">parser</span> <span class="pl-c1">=</span> <span class="pl-v">TextParser</span>()
+
+<span class="pl-s1">parser</span>.<span class="pl-s1">catalog</span>.<span class="pl-en">sample</span>(<span class="pl-c1">1</span>, <span class="pl-s1">random_state</span> <span class="pl-c1">=</span> <span class="pl-c1">123</span>).<span class="pl-s1">urn</span>.<span class="pl-s1">values</span>[<span class="pl-c1">0</span>]
+
+<span class="pl-s1">parser</span>.<span class="pl-en">get_text</span>(<span class="pl-s1">urn</span> <span class="pl-c1">=</span> <span class="pl-s">'urn:cts:greekLit:tlg2200.tlg00445.opp-grc1'</span>) <span class="pl-c"># Libanius, Orationes XXVI-L</span>
+
+<span class="pl-s1">parser</span>.<span class="pl-en">add_word_definitions</span>() <span class="pl-c"># creates dictionary</span>
+
+<span class="pl-s1">parser</span>.<span class="pl-en">make_flashcards</span>(<span class="pl-s">'libanius_vocab'</span>) <span class="pl-c"># output in working directory</span></pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
