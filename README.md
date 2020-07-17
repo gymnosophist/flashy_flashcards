@@ -1,35 +1,34 @@
-# Text parser 
+# Text parser
 
-## Purpose and scope 
+## Purpose and scope
 
-The goal of this project is to create an easy interface for creating Anki flashcards based on any (Greek) text found in the Perseus digital library. This objective is accomplished via the TextParser class, which has methods to explore the available corpus, generate a word list, parse the LSJ, and create and export Anki flashcards. 
+The goal of this project is to create an easy interface for creating Anki flashcards based on any (Greek) text found in the Perseus digital library. This objective is accomplished via the TextParser class, which has methods to explore the available corpus, generate a word list, parse the LSJ, and create and export Anki flashcards.
 
-## Requirements 
+## Requirements
 
-There are several libraries required, and several pieces of outside data. 
+There are several libraries required, and several pieces of outside data.
 
-### Package requirements 
+### Package requirements
 
 pandas == 1.0.4
 xml.etree.ElementTree == 1.3.0
-glob == 0.7 
+glob == 0.7
 genanki == 0.8
 tqdm == 4.47.0
 
-### Data requirements 
+### Data requirements
 
-The module requries access to the Lemmatized Ancient Greek and LSJ Unicode github repos, available at 
-https://github.com/gcelano. Credit to Giuseppe G. A. Celano for these data. 
+The module requries access to the Lemmatized Ancient Greek and LSJ Unicode github repos, available at [this repo](https://github.com/gcelano). Credit to Giuseppe G. A. Celano for these data.
 
-## Operation 
+## Operation
 
-Clone the repo, then import pharr.py. Initialize the class TextParser(). 
+Clone the repo, then import pharr.py. Initialize the class TextParser().
 
-### Example usage 
+### Example usage
 
-```python 
+```python
 
-import pharr.py 
+import pharr.py
 
 parser = TextParser()
 
