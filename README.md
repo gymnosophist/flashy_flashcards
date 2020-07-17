@@ -1,4 +1,8 @@
+
 # Pharr: A program to parse Ancient Greek and Generate an Anki Deck
+
+This program was written to explore and parse texts written in Ancient Greek. The program not only enables students to create flashcards and study the vocabulary particular to an author, 
+but also provides a jumping-off point for future study of words used in Ancient Greek.
 
 ## Requirements
 
