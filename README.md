@@ -4,6 +4,24 @@
 This program was written to explore and parse texts written in Ancient Greek. The program not only enables students to create flashcards and study the vocabulary particular to an author, 
 but also provides a jumping-off point for future study of words used in Ancient Greek.
 
+## Updated 09-24-2020
+
+Added several refinements to the final flashcard output including: 
+
+- verb principal parts (when included in the LSJ) are included on the **front** of the card to comport with typical "dictionary form" 
+
+- Senses for cards are now more complete and informative; each sense (i.e. definition) is labeled. For example, καλάμη includes senses of both "straw of corn" and "residue" in the LSJ. Users should be able to differentiate the two senses easily. Cards have been updated to reflect this. 
+
+- Similar change to Greek citations: those are also labeled according to sense on each card. 
+
+- Author citations removed. This is occasionally useful information, but not targeted for general use. 
+
+- Empty cards have been removed. Ocassionally cards were being generated that did not include English senses from the LSJ (many obscure proper nouns, for example, which are not filtered for). These words will no longer be passed to `genanki` for flashcard creation.
+
+## Roadmap 
+
+Future changes include potentially capping the number of senses transmitted to each card. I took a maximalist approach with this version, but for casual users limiting senses to the top two or three may be a better option. 
+
 ## Requirements
 
 There are several libraries required, and several pieces of outside data.
